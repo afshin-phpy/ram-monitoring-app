@@ -40,7 +40,7 @@ class DatabaseManager:
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
             cursor.execute("""
-                SELECT * FROM ram_info
+                SELECT total, free, used FROM ram_info
                 ORDER BY id DESC
                 limit ?
             """, (n,))

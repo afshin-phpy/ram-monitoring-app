@@ -1,7 +1,8 @@
 from api.DatabaseManager import DatabaseManager
-import psutil, os
+import psutil, os, json
 
 class RAMDataManager:
+    KEYS = ["total", "free", "used"]
     @staticmethod
     def ram_data():
         ram = psutil.virtual_memory()
@@ -22,4 +23,6 @@ class RAMDataManager:
     @staticmethod
     def get_ram_data(n):
         db = DatabaseManager('ram_info.db')
-        return db.get_last_n_entries(n)    
+        data = db.get_last_n_entries(n)   
+        converted_data = [dict(zip(RAMDataManager.KEYS, sublist)) for sublist in data] 
+        return converted_data
